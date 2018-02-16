@@ -1,11 +1,12 @@
 import { FormGroupState } from 'ngrx-forms';
 
-export interface Form {
+export interface Person {
   firstName: string;
   lastName: string;
+  age: number;
 }
 
 export interface State {
   count: number;
-  form: FormGroupState<Form>;
+  person: FormGroupState<Person>;
 }

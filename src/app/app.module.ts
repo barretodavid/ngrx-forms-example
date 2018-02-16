@@ -5,7 +5,7 @@ import { NgrxFormsModule } from 'ngrx-forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
-import { RootComponent, CounterComponent, FormComponent } from './components';
+import { RootComponent, CounterComponent, PersonComponent, ConfigComponent } from './components';
 import { rootReducer, initialState } from './store';
 
 
@@ -19,8 +19,9 @@ import { rootReducer, initialState } from './store';
   ],
   declarations: [
     RootComponent,
-    FormComponent,
+    PersonComponent,
     CounterComponent,
+    ConfigComponent,
   ],
   providers: [],
   bootstrap: [RootComponent]

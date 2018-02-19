@@ -1,6 +1,7 @@
 import { createFormGroupState, FormGroupState, createFormGroupReducerWithUpdate, updateGroup, validate, AbstractControlState, cast, setErrors, setValue } from 'ngrx-forms';
 import { counterReducer, counterInitialValue } from '../store';
 
+// --- person
 
 export interface Person {
   firstName: string;
@@ -8,47 +9,50 @@ export interface Person {
   age: number;
 }
 
+const initialPersonState = {
+  firstName: '',
+  lastName: '',
+  age: null,
+};
+
+const personGroupValidation = updateGroup<Person>({
+  firstName: validate(required),
+  lastName: validate(required),
+});
+
+// -------- config
+
 export interface Config {
   minAge: number;
 }
 
-// export interface Form {
-//   person: FormGroupState<Person>;
-//   config: FormGroupState<Config>;
-// }
+const initialConfigState = {
+  minAge: 21,
+};
 
-export interface MyFormValue {
+const configGroupValidation = updateGroup<Config>({
+  minAge: validate([required])
+});
+
+// ----- root
+
+export interface RootForm {
   person: Person;
   config: Config;
 }
 
-
-
-const initialFormState = createFormGroupState<MyFormValue>('myForm', {
-  person: {
-    firstName: '',
-    lastName: '',
-    age: null,
-  },
-  config: {
-    minAge: 21,
-  },
+const initialFormState = createFormGroupState<RootForm>('rootForm', {
+  person: initialPersonState,
+  config: initialConfigState,
 });
 
-
-
-const myFormReducer = createFormGroupReducerWithUpdate<MyFormValue>(
-    {
-    person: updateGroup<Person>({
-      firstName: validate(required),
-      lastName: validate(required),
-    }),
-    config: updateGroup<Config>({
-      minAge: validate([required])
-    })
+const myFormReducer = createFormGroupReducerWithUpdate<RootForm>(
+  {
+    person: personGroupValidation,
+    config: configGroupValidation,
   },
   {
-    person: (person: AbstractControlState<Person>, myForm: FormGroupState<MyFormValue>) => updateGroup<Person>({
+    person: (person: AbstractControlState<Person>, myForm: FormGroupState<RootForm>) => updateGroup<Person>({
       age: (age: AbstractControlState<number>) => {
         const minAgeValue = (<FormGroupState<Config>>myForm.controls.config).controls.minAge.value;
         if (age.value < minAgeValue) {
@@ -60,6 +64,24 @@ const myFormReducer = createFormGroupReducerWithUpdate<MyFormValue>(
     })(cast(person))
   }
 );
+
+export interface AppState {
+  counter: number;
+  myForm: FormGroupState<RootForm>;
+}
+
+export const initialState: AppState = {
+  counter: counterInitialValue,
+  myForm: initialFormState,
+}
+
+export const rootReducer = {
+  counter: counterReducer,
+  myForm: myFormReducer,
+};
+
+
+// --- util
 
 function minAge(minAge: number) {
   return (value: number) => {
@@ -76,18 +98,3 @@ function min(minValue: number) {
     return value >= minValue ? {} : { min: [value, minValue] };
   }
 }
-
-export interface AppState {
-  counter: number;
-  myForm: FormGroupState<MyFormValue>;
-}
-
-export const initialState: AppState = {
-  counter: counterInitialValue,
-  myForm: initialFormState,
-}
-
-export const rootReducer = {
-  counter: counterReducer,
-  myForm: myFormReducer,
-};

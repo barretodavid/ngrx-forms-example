@@ -1,5 +1,5 @@
-import { createFormGroupState, FormGroupState, createFormGroupReducerWithUpdate, updateGroup, validate, AbstractControlState, cast } from 'ngrx-forms';
-
+import { createFormGroupState, FormGroupState, createFormGroupReducerWithUpdate, updateGroup, validate, AbstractControlState, cast, setErrors, setValue } from 'ngrx-forms';
+import { counterReducer, counterInitialValue } from '../store';
 
 
 export interface Person {
@@ -22,9 +22,7 @@ export interface MyFormValue {
   config: Config;
 }
 
-export interface AppState {
-  myForm: FormGroupState<MyFormValue>;
-}
+
 
 const initialFormState = createFormGroupState<MyFormValue>('myForm', {
   person: {
@@ -37,9 +35,7 @@ const initialFormState = createFormGroupState<MyFormValue>('myForm', {
   },
 });
 
-const initialState: AppState = {
-  myForm: initialFormState,
-}
+
 
 const myFormReducer = createFormGroupReducerWithUpdate<MyFormValue>(
     {
@@ -48,20 +44,28 @@ const myFormReducer = createFormGroupReducerWithUpdate<MyFormValue>(
       lastName: validate(required),
     }),
     config: updateGroup<Config>({
-      minAge: validate([required, min(21)])
+      minAge: validate([required])
     })
   },
   {
     person: (person: AbstractControlState<Person>, myForm: FormGroupState<MyFormValue>) => updateGroup<Person>({
       age: (age: AbstractControlState<number>) => {
-        if(myForm.controls.config.)
-        return age;
+        const minAgeValue = (<FormGroupState<Config>>myForm.controls.config).controls.minAge.value;
+        if (age.value < minAgeValue) {
+          return setErrors({ minAge: true }, setValue(age.value, age));
+        } else {
+          return setErrors({}, setValue(age.value, age));
+        }
       }
     })(cast(person))
   }
 );
 
-
+function minAge(minAge: number) {
+  return (value: number) => {
+    return value >= minAge ? {} : { minAge: [value, minAge] };
+  }
+}
 
 function required(value: any) {
   return !!value ? {} : { required: true };
@@ -72,3 +76,18 @@ function min(minValue: number) {
     return value >= minValue ? {} : { min: [value, minValue] };
   }
 }
+
+export interface AppState {
+  counter: number;
+  myForm: FormGroupState<MyFormValue>;
+}
+
+export const initialState: AppState = {
+  counter: counterInitialValue,
+  myForm: initialFormState,
+}
+
+export const rootReducer = {
+  counter: counterReducer,
+  myForm: myFormReducer,
+};

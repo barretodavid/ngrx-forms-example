@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { FormGroupState } from 'ngrx-forms';
+import { FormGroupState, AbstractControlState } from 'ngrx-forms';
 import { Observable } from 'rxjs/Observable';
-import { Person, State } from '../store';
+import { Person, AppState } from '../forms';
 
 @Component({
   selector: 'app-person',
   template: `
-    <form novalidate [ngrxFormState]="formState$ | async">
+    <form novalidate [ngrxFormState]="personForm$ | async">
       <label>First Name:</label>
-      <input type="text" [ngrxFormControlState]="(formState$ | async).controls.firstName" />
+      <input type="text" [ngrxFormControlState]="(personForm$ | async).controls.firstName" />
       <label>Last Name:</label>
-      <input type="text" [ngrxFormControlState]="(formState$ | async).controls.lastName" />
+      <input type="text" [ngrxFormControlState]="(personForm$ | async).controls.lastName" />
       <label>Age:</label>
-      <input type="number" [ngrxFormControlState]="(formState$ | async).controls.age" />
+      <input type="number" [ngrxFormControlState]="(personForm$ | async).controls.age" />
     </form>
   `
 })
 export class PersonComponent {
-  formState$: Observable<FormGroupState<Person>>;
+  personForm$: Observable<FormGroupState<Person>>;
 
-  constructor(private store: Store<State>) {
-    this.formState$ = store.pipe(select(state => state.person));
+  constructor(private store: Store<AppState>) {
+    this.personForm$ = store.pipe(select(state => <FormGroupState<Person>>state.myForm.controls.person));
   }
 }

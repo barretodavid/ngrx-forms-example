@@ -1,22 +1,25 @@
 import { Component } from '@angular/core';
-// import { select, Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { FormGroupState } from 'ngrx-forms';
+import { Config, AppState } from '../forms';
+
 // import { FormGroupState } from 'ngrx-forms';
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 // import { Person, State } from '../store';
 
 @Component({
   selector: 'app-config',
   template: `
-    <form novalidate>
+    <form novalidate [ngrxFormState]="configForm$ | async">
       <label>Min Age:</label>
-      <input type="number" />
+      <input type="number" [ngrxFormControlState]="(configForm$ | async).controls.minAge" />
     </form>
   `
 })
 export class ConfigComponent {
-  // formState$: Observable<FormGroupState<Person>>;
+  configForm$: Observable<FormGroupState<Config>>;
 
-  // constructor(private store: Store<State>) {
-  //   this.formState$ = store.pipe(select(state => state.person));
-  // }
+  constructor(private store: Store<AppState>) {
+    this.configForm$ = store.pipe(select(state => <FormGroupState<Config>>state.myForm.controls.config));
+  }
 }

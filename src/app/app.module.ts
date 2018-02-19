@@ -6,7 +6,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { RootComponent, CounterComponent, PersonComponent, ConfigComponent } from './components';
-import { rootReducer, initialState } from './store';
+// import { rootReducer, initialState } from './store';
+import { rootReducer, initialState } from './forms';
 
 
 @NgModule({

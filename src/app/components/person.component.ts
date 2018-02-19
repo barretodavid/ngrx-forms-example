@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { FormGroupState, AbstractControlState } from 'ngrx-forms';
 import { Observable } from 'rxjs/Observable';
-import { Person, AppState } from '../forms';
+
+import { Person, AppState } from '../store';
 
 @Component({
   selector: 'app-person',

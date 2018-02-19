@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { InvalidFieldsSelector } from '../store';
 
 @Component({
   selector: 'app-root',
@@ -6,10 +8,15 @@ import { Component } from '@angular/core';
     <h1>NgRx Forms POC</h1>
     <nav>
       <a routerLink="/counter">Counter</a>
-      <a routerLink="/person">Person</a>
+      <a routerLink="/person">Person ({{ personErrors$ | async }})</a>
       <a routerLink="/config">Config</a>
     <nav>
     <router-outlet></router-outlet>
   `
 })
-export class RootComponent {}
+export class RootComponent {
+  public personErrors$: Observable<number>;
+  constructor(private invalidFieldsSelector: InvalidFieldsSelector) {
+    this.personErrors$ = invalidFieldsSelector.personErrors$
+  }
+}

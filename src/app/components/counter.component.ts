@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { INCREMENT, DECREMENT, RESET } from '../store';
-import { AppState } from '../forms';
+import { INCREMENT, DECREMENT, RESET, AppState } from '../store';
 
 @Component({
   selector: 'app-counter',

@@ -6,9 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { RootComponent, CounterComponent, PersonComponent, ConfigComponent } from './components';
-// import { rootReducer, initialState } from './store';
-import { rootReducer, initialState } from './forms';
-
+import { rootReducer, initialState, InvalidFieldsSelector } from './store';
 
 @NgModule({
   imports: [
@@ -24,7 +22,7 @@ import { rootReducer, initialState } from './forms';
     CounterComponent,
     ConfigComponent,
   ],
-  providers: [],
+  providers: [InvalidFieldsSelector],
   bootstrap: [RootComponent]
 })
 export class AppModule { }

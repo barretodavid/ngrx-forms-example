@@ -1,16 +1,19 @@
-// import { ActionReducerMap } from '@ngrx/store';
-// import { formGroupReducer, createFormGroupState } from 'ngrx-forms';
+import { FormGroupState } from 'ngrx-forms';
 
-// import { State, Person } from './types';
-// import { counterReducer, counterInitialValue } from './counter.reducer';
-// import { personInitialValue, personReducer } from './person.reducer';
+import { RootForm, initialFormState, formReducer } from './forms';
+import { counterReducer, counterInitialValue} from './counter.reducer';
 
-// export const initialState: State = {
-//   count: counterInitialValue,
-//   person: personInitialValue,
-// }
+export interface AppState {
+  counter: number;
+  myForm: FormGroupState<RootForm>;
+}
 
-// export const rootReducer: ActionReducerMap<State> = {
-//   count: counterReducer,
-//   person: personReducer,
-// };
+export const initialState: AppState = {
+  counter: counterInitialValue,
+  myForm: initialFormState,
+}
+
+export const rootReducer = {
+  counter: counterReducer,
+  myForm: formReducer,
+};

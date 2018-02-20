@@ -39,7 +39,7 @@ export const formReducer = createFormGroupReducerWithUpdate<RootForm>(
         age: (age: AbstractControlState<number>) => {
           const minAgeValue = (<FormGroupState<Config>>myForm.controls.config)
             .controls.minAge.value;
-          return validate(minAge(minAgeValue), setValue(age.value, age));
+          return validate(minAge(minAgeValue), age);
         },
       })(cast(person)),
   },

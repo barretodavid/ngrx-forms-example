@@ -20,7 +20,7 @@ export class ConfigComponent {
 
   constructor(private store: Store<AppState>) {
     this.configForm$ = store.pipe(
-      select(state => <FormGroupState<Config>>state.myForm.controls.config),
+      select(state => <FormGroupState<Config>>state.form.controls.config),
     );
   }
 }

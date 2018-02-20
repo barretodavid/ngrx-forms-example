@@ -24,7 +24,7 @@ export class PersonComponent {
 
   constructor(private store: Store<AppState>) {
     this.personForm$ = store.pipe(
-      select(state => <FormGroupState<Person>>state.myForm.controls.person),
+      select(state => <FormGroupState<Person>>state.form.controls.person),
     );
   }
 }

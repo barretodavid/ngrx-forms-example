@@ -20,7 +20,7 @@ export interface RootForm {
   config: Config;
 }
 
-export const initialFormState = createFormGroupState<RootForm>('rootForm', {
+export const initialFormState = createFormGroupState<RootForm>('form', {
   person: initialPersonState,
   config: initialConfigState,
 });

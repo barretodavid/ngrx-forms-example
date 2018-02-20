@@ -8,5 +8,5 @@ export const initialConfigState = {
 };
 
 export const configGroupValidation = updateGroup<Config>({
-  minAge: validate([required, min(0)])
+  minAge: validate([required, min(0)]),
 });

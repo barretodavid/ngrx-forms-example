@@ -1,7 +1,7 @@
 import { FormGroupState } from 'ngrx-forms';
 
 import { RootForm, initialFormState, formReducer } from './forms';
-import { counterReducer, counterInitialValue} from './counter.reducer';
+import { counterReducer, counterInitialValue } from './counter.reducer';
 
 export interface AppState {
   counter: number;
@@ -11,7 +11,7 @@ export interface AppState {
 export const initialState: AppState = {
   counter: counterInitialValue,
   myForm: initialFormState,
-}
+};
 
 export const rootReducer = {
   counter: counterReducer,

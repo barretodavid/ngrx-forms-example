@@ -20,15 +20,15 @@ export class CounterComponent {
     this.count$ = store.pipe(select(state => state.counter));
   }
 
-  increment(){
+  increment() {
     this.store.dispatch({ type: INCREMENT });
   }
 
-  decrement(){
+  decrement() {
     this.store.dispatch({ type: DECREMENT });
   }
 
-  reset(){
+  reset() {
     this.store.dispatch({ type: RESET });
   }
 }

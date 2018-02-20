@@ -8,11 +8,14 @@ import { Person } from '../models';
 @Injectable()
 export class InvalidFieldsSelector {
   personErrors$;
-  constructor(private store: Store<AppState>){
-    this.personErrors$ = store.pipe(select(state => {
-      const errors = (<FormGroupState<Person>>state.myForm.controls.person).errors;
-      return countValidationErrors(errors);
-    }));
+  constructor(private store: Store<AppState>) {
+    this.personErrors$ = store.pipe(
+      select(state => {
+        const errors = (<FormGroupState<Person>>state.myForm.controls.person)
+          .errors;
+        return countValidationErrors(errors);
+      }),
+    );
   }
 }
 

@@ -17,12 +17,14 @@ import { Person } from '../models';
       <label>Age:</label>
       <input type="number" [ngrxFormControlState]="(personForm$ | async).controls.age" />
     </form>
-  `
+  `,
 })
 export class PersonComponent {
   personForm$: Observable<FormGroupState<Person>>;
 
   constructor(private store: Store<AppState>) {
-    this.personForm$ = store.pipe(select(state => <FormGroupState<Person>>state.myForm.controls.person));
+    this.personForm$ = store.pipe(
+      select(state => <FormGroupState<Person>>state.myForm.controls.person),
+    );
   }
 }

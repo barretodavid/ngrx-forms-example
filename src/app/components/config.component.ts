@@ -13,12 +13,14 @@ import { Config } from '../models';
       <label>Min Age:</label>
       <input type="number" [ngrxFormControlState]="(configForm$ | async).controls.minAge" />
     </form>
-  `
+  `,
 })
 export class ConfigComponent {
   configForm$: Observable<FormGroupState<Config>>;
 
   constructor(private store: Store<AppState>) {
-    this.configForm$ = store.pipe(select(state => <FormGroupState<Config>>state.myForm.controls.config));
+    this.configForm$ = store.pipe(
+      select(state => <FormGroupState<Config>>state.myForm.controls.config),
+    );
   }
 }

@@ -21,4 +21,3 @@ export function counterReducer(count: number, action: Action): number {
       return count;
   }
 }
-

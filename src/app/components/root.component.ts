@@ -5,7 +5,7 @@ import { InvalidFieldsSelector } from '../store';
 @Component({
   selector: 'app-root',
   template: `
-    <h1>Cross Section Validation</h1>
+    <h1>NgRx Forms</h1>
     <nav>
       <a routerLink="/counter">Counter</a>
       <a routerLink="/person">Person ({{ personErrors$ | async }})</a>

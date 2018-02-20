@@ -3,7 +3,8 @@ import { select, Store } from '@ngrx/store';
 import { FormGroupState, AbstractControlState } from 'ngrx-forms';
 import { Observable } from 'rxjs/Observable';
 
-import { Person, AppState } from '../store';
+import { AppState } from '../store';
+import { Person } from '../models';
 
 @Component({
   selector: 'app-person',

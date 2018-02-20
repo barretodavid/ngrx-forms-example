@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { FormGroupState, ValidationErrors } from 'ngrx-forms';
 
 import { AppState } from './root.reducer';
-import { Person } from './forms';
+import { Person } from '../models';
 
 @Injectable()
 export class InvalidFieldsSelector {

@@ -3,7 +3,8 @@ import { select, Store } from '@ngrx/store';
 import { FormGroupState } from 'ngrx-forms';
 import { Observable } from 'rxjs/Observable';
 
-import { Config, AppState } from '../store';
+import { AppState } from '../store';
+import { Config } from '../models';
 
 @Component({
   selector: 'app-config',

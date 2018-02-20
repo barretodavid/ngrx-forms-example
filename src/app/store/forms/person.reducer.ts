@@ -1,11 +1,7 @@
 import { updateGroup, validate } from 'ngrx-forms';
-import { required } from './utils';
 
-export interface Person {
-  firstName: string;
-  lastName: string;
-  age: number;
-}
+import { Person } from '../../models';
+import { required } from './utils';
 
 export const initialPersonState = {
   firstName: '',

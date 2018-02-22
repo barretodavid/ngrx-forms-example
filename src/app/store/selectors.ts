@@ -18,26 +18,20 @@ export class InvalidFieldsSelector {
 
   constructor(private store: Store<AppState>) {
     this.appErrors$ = store.pipe(
-      select(state => {
-        return countValidationErrors(state.form);
-      }),
+      select(state => countValidationErrors(state.form)),
     );
     this.personErrors$ = store.pipe(
-      select(state => {
-        return countValidationErrors(state.form.controls.person);
-      }),
+      select(state => countValidationErrors(state.form.controls.person)),
     );
     this.configErrors$ = store.pipe(
-      select(state => {
-        return countValidationErrors(state.form.controls.config);
-      }),
+      select(state => countValidationErrors(state.form.controls.config)),
     );
   }
 }
 
 function countValidationErrors(control: AbstractControlState<any>): number {
-  if (control['controls']) {
-    const subControl = (<FormGroupState<any>>control).controls;
+  const subControl = (<FormGroupState<any>>control).controls;
+  if (subControl) {
     return Object.keys(subControl).reduce((errors, key) => {
       return countValidationErrors(subControl[key]) + errors;
     }, 0);

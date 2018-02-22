@@ -1,15 +1,15 @@
 export function minAge(minAge: number) {
   return (value: number) => {
-    return value >= minAge ? {} : { minAge: [value, minAge] };
+    return value >= minAge ? null : { minAge: [value, minAge] };
   };
 }
 
 export function required(value: any) {
-  return !!value ? {} : { required: true };
+  return !!value ? null : { required: true };
 }
 
 export function min(minValue: number) {
   return (value: number) => {
-    return value >= minValue ? {} : { min: [value, minValue] };
+    return value >= minValue ? null : { min: [value, minValue] };
   };
 }

@@ -1,4 +1,5 @@
-export * from './counter.reducer';
 export * from './root.reducer';
-export * from './forms';
+export * from './config.reducer';
+export * from './person.reducer';
+export * from './utils';
 export * from './selectors';

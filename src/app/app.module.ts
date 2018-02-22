@@ -5,12 +5,7 @@ import { NgrxFormsModule } from 'ngrx-forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
-import {
-  RootComponent,
-  CounterComponent,
-  PersonComponent,
-  ConfigComponent,
-} from './components';
+import { RootComponent, PersonComponent, ConfigComponent } from './components';
 import { rootReducer, initialState, InvalidFieldsSelector } from './store';
 
 @NgModule({
@@ -21,12 +16,7 @@ import { rootReducer, initialState, InvalidFieldsSelector } from './store';
     StoreModule.forRoot(rootReducer, { initialState }),
     StoreDevtoolsModule.instrument(),
   ],
-  declarations: [
-    RootComponent,
-    PersonComponent,
-    CounterComponent,
-    ConfigComponent,
-  ],
+  declarations: [RootComponent, PersonComponent, ConfigComponent],
   providers: [InvalidFieldsSelector],
   bootstrap: [RootComponent],
 })

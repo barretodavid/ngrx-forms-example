@@ -1,6 +1,6 @@
 import { updateGroup, validate } from 'ngrx-forms';
 
-import { Config } from '../../models';
+import { Config } from '../models';
 import { required, min } from './utils';
 
 export const initialConfigState = {

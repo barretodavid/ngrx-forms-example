@@ -7,7 +7,6 @@ import { InvalidFieldsSelector } from '../store';
   template: `
     <h1>NgRx Forms Example</h1>
     <nav>
-      <a routerLink="/counter">Counter</a>
       <a routerLink="/person">Person ({{ personErrors$ | async }})</a>
       <a routerLink="/config">Config</a>
     <nav>

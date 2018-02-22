@@ -1,26 +1,49 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { FormGroupState, ValidationErrors } from 'ngrx-forms';
+import {
+  FormGroupState,
+  ValidationErrors,
+  AbstractControlState,
+} from 'ngrx-forms';
+import { Observable } from 'rxjs/Observable';
 
-import { AppState } from './root.reducer';
+import { AppState, RootForm } from './root.reducer';
 import { Person } from '../models';
 
 @Injectable()
 export class InvalidFieldsSelector {
-  personErrors$;
+  appErrors$: Observable<number>;
+  personErrors$: Observable<number>;
+  configErrors$: Observable<number>;
+
   constructor(private store: Store<AppState>) {
+    this.appErrors$ = store.pipe(
+      select(state => {
+        return countValidationErrors(state.form);
+      }),
+    );
     this.personErrors$ = store.pipe(
       select(state => {
-        const errors = (<FormGroupState<Person>>state.form.controls.person)
-          .errors;
-        return countValidationErrors(errors);
+        return countValidationErrors(state.form.controls.person);
+      }),
+    );
+    this.configErrors$ = store.pipe(
+      select(state => {
+        return countValidationErrors(state.form.controls.config);
       }),
     );
   }
 }
 
-function countValidationErrors(errors: ValidationErrors): number {
-  return Object.keys(errors).reduce((prev, acc) => {
-    return prev + 1;
-  }, 0);
+function countValidationErrors(control: AbstractControlState<any>): number {
+  if (control['controls']) {
+    const subControl = (<FormGroupState<any>>control).controls;
+    return Object.keys(subControl).reduce((errors, key) => {
+      return countValidationErrors(subControl[key]) + errors;
+    }, 0);
+  } else {
+    return Object.keys(control.errors).reduce(errors => {
+      return errors + 1;
+    }, 0);
+  }
 }

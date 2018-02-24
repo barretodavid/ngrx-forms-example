@@ -39,8 +39,6 @@ function countValidationErrors(control: AbstractControlState<any>): number {
       return countValidationErrors(subControl[key]) + errors;
     }, 0);
   } else {
-    return Object.keys(control.errors).reduce(errors => {
-      return errors + 1;
-    }, 0);
+    return Object.keys(control.errors).length;
   }
 }

@@ -30,6 +30,9 @@ export class InvalidFieldsSelector {
 }
 
 function countValidationErrors(control: AbstractControlState<any>): number {
+  if (control.isPristine) {
+    return 0;
+  }
   const subControl = (<FormGroupState<any>>control).controls;
   if (subControl) {
     return Object.keys(subControl).reduce((errors, key) => {

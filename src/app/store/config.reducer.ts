@@ -1,12 +1,12 @@
 import { updateGroup, validate } from 'ngrx-forms';
+import { required, greaterThanOrEqualTo } from 'ngrx-forms/validation';
 
 import { Config } from '../models';
-import { required, min } from './utils';
 
 export const initialConfigState = {
   minAge: 21,
 };
 
 export const configGroupValidation = updateGroup<Config>({
-  minAge: validate([required, min(0)]),
+  minAge: validate([required, greaterThanOrEqualTo(0)]),
 });

@@ -1,7 +1,7 @@
 import { updateGroup, validate } from 'ngrx-forms';
+import { required } from 'ngrx-forms/validation';
 
 import { Person } from '../models';
-import { required } from './utils';
 
 export const initialPersonState = {
   firstName: '',

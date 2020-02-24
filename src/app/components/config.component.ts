@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { FormGroupState } from 'ngrx-forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { AppState } from '../store';
 import { Config } from '../models';

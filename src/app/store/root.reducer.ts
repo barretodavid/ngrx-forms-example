@@ -1,12 +1,9 @@
 import {
   createFormGroupState,
-  createFormGroupReducerWithUpdate,
+  createFormStateReducerWithUpdate,
   AbstractControlState,
   FormGroupState,
   updateGroup,
-  setErrors,
-  setValue,
-  cast,
   validate,
 } from 'ngrx-forms';
 
@@ -25,24 +22,24 @@ export const initialFormState = createFormGroupState<RootForm>('form', {
   config: initialConfigState,
 });
 
-export const formReducer = createFormGroupReducerWithUpdate<RootForm>(
-  {
+export const formReducer = createFormStateReducerWithUpdate<RootForm>(
+  updateGroup<RootForm>({
     person: personGroupValidation,
     config: configGroupValidation,
   },
-  {
-    person: (
-      person: AbstractControlState<Person>,
-      rootForm: FormGroupState<RootForm>,
-    ) =>
-      updateGroup<Person>({
-        age: (age: AbstractControlState<number>) => {
-          const minAgeValue = (<FormGroupState<Config>>rootForm.controls.config)
-            .controls.minAge.value;
-          return validate(minAge(minAgeValue), age);
-        },
-      })(cast(person)),
-  },
+    {
+      person: (
+        person: FormGroupState<Person>,
+        rootForm: FormGroupState<RootForm>,
+      ) =>
+        updateGroup<Person>({
+          age: (age: AbstractControlState<number>) => {
+            const minAgeValue = (<FormGroupState<Config>>rootForm.controls.config)
+              .controls.minAge.value;
+            return validate<number>(age, minAge(minAgeValue));
+          },
+        })(person),
+    })
 );
 
 export interface AppState {

@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   FormGroupState,
-  ValidationErrors,
   AbstractControlState,
 } from 'ngrx-forms';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { AppState, RootForm } from './root.reducer';
-import { Person } from '../models';
 
 @Injectable()
 export class InvalidFieldsSelector {
